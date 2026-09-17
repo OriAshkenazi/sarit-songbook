@@ -1,6 +1,6 @@
 # שרית חדד · ספר שירים
 
-Static offline-first PWA built only from the supplied `שרית_מאוחד.txt` source file.
+Static offline-first PWA built only from the supplied `שרית_מאוחד.txt` source file, using the locally bundled Rubik font for Hebrew and Latin text.
 
 ## Run locally
 

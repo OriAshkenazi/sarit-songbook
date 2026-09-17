@@ -67,8 +67,9 @@ The manifest and Safari metadata must reference the PNG artwork, not the legacy 
 ## Offline and deployment requirements
 
 - Keep all HTML, CSS, JavaScript, lyrics, metadata, icons, and fonts local.
+- Use the locally bundled Rubik variable font (`rubik-vf.ttf`) for the app UI and lyric reader.
 - Keep the valid manifest and service worker.
-- Cache all application assets, including the portrait icon assets and local Hebrew font.
+- Cache all application assets, including the portrait icon assets and the local Rubik font.
 - Bump the service-worker cache name whenever application assets change.
 - The deployed target is GitHub Pages at:
   `https://oriashkenazi.github.io/sarit-songbook/`
