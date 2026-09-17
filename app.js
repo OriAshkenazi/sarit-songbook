@@ -26,6 +26,12 @@
   function toggleSettings() { settingsPanel.classList.toggle('open'); const open = settingsPanel.classList.contains('open'); settingsPanel.setAttribute('aria-hidden', String(!open)); settingsButton.setAttribute('aria-expanded', String(open)); }
   function closeSettings() { settingsPanel.classList.remove('open'); settingsPanel.setAttribute('aria-hidden', 'true'); settingsButton.setAttribute('aria-expanded', 'false'); }
   function applyTheme(dark) { document.body.classList.toggle('dark', dark); localStorage.setItem('sarit-theme', dark ? 'dark' : 'light'); document.querySelector('#themeIcon').textContent = dark ? '☾' : '☼'; document.querySelector('#themeValue').textContent = dark ? 'כהה' : 'בהיר'; }
+  function isIOSDevice() { return /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+  function getPlatformUrls(title) {
+    const searchTerm = encodeURIComponent(`שרית חדד ${title}`);
+    if (isIOSDevice()) return { appleMusicUrl: `music://music.apple.com/search?term=${searchTerm}`, spotifyUrl: `spotify:search:${searchTerm}` };
+    return { appleMusicUrl: `https://music.apple.com/il/search?term=${searchTerm}`, spotifyUrl: `https://open.spotify.com/search/${searchTerm}` };
+  }
 
   function renderHome() {
     currentTitle = sessionStorage.getItem('sarit-current-title');
@@ -51,9 +57,7 @@
   function renderReader(title) {
     const song = songByTitle.get(title); if (!song) return;
     currentTitle = title; sessionStorage.setItem('sarit-current-title', title); const index = flat.indexOf(title); const previous = flat[index - 1]; const next = flat[index + 1]; closeSettings();
-    const searchTerm = encodeURIComponent(`שרית חדד ${song.title}`);
-    const appleMusicUrl = `https://music.apple.com/il/search?term=${searchTerm}`;
-    const spotifyUrl = `https://open.spotify.com/search/${searchTerm}`;
+    const { appleMusicUrl, spotifyUrl } = getPlatformUrls(song.title);
     app.innerHTML = `<div class="reader-head"><button class="icon-button back" id="backButton" aria-label="חזרה לרשימת השירים">→</button><h1 class="reader-title">${esc(song.title)}</h1></div><div class="platform-links" aria-label="חיפוש השיר בשירותי מוזיקה"><a class="platform-link apple" href="${appleMusicUrl}" target="_blank" rel="noopener noreferrer">Apple Music</a><a class="platform-link spotify" href="${spotifyUrl}" target="_blank" rel="noopener noreferrer">Spotify</a></div><article class="lyrics" style="font-size:var(--reader-size)">${esc(song.lyrics)}</article><div class="nav-row"><button class="nav-button" id="prev" ${previous ? '' : 'disabled'}>→ ${previous ? esc(previous) : 'תחילת המופע'}</button><button class="nav-button next" id="next" ${next ? '' : 'disabled'}>${next ? esc(next) : 'סוף המופע'} ←</button></div>`;
     document.querySelector('#backButton').addEventListener('click', renderHome);
     if (previous) document.querySelector('#prev').addEventListener('click', () => renderReader(previous));
@@ -61,6 +65,6 @@
     app.focus(); window.scrollTo({top: 0, behavior: 'smooth'});
   }
   function esc(value) { return value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=6'));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=7'));
   renderHome();
 })();
