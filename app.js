@@ -10,7 +10,7 @@
   let query = '';
   let fontSize = Number(localStorage.getItem('sarit-font-size') || 20);
   let currentTitle = null;
-  const ICON_SPRITE = 'icons.svg?v=11';
+  const ICON_SPRITE = 'icons.svg?v=12';
 
   document.documentElement.style.setProperty('--reader-size', `${fontSize}px`);
   applyTheme(localStorage.getItem('sarit-theme') !== 'light');
@@ -31,8 +31,8 @@
   homeButton.innerHTML = icon('home');
   settingsClose.innerHTML = icon('close');
   function inlineIcon(name, className) {
-    if (name === 'settings') return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9.6 3.8.6-1h3.6l.6 1 .4 1.4 1.3.8 1.4-.3 1-.6 2.6 2.6-.6 1-.3 1.4.8 1.3 1.4.4 1 .6v3.6l-1 .6-1.4.4-.8 1.3.3 1.4.6 1-2.6 2.6-1-.6-1.4-.3-1.3.8-.4 1.4-.6 1H10l-.6-1-.4-1.4-1.3-.8-1.4.3-1 .6-2.6-2.6.6-1 .3-1.4-.8-1.3-1.4-.4-1-.6v-3.6l1-.6 1.4-.4.8-1.3-.3-1.4-.6-1L5.3 5l1 .6 1.4.3L9 5.2l.6-1.4Z" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>`;
-    if (name === 'apple') return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M15.7 5.1c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.1 1.7-.7.8-1.3 2-1.1 3.1 1.2.1 2.4-.6 3.1-1.5Zm3.1 7.5c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.2-2-3.9-2-.9-.1-1.8.5-2.3.5-.6 0-1.4-.5-2.2-.5-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.3.9 1.3 1.9 2.7 3.3 2.6 1.3-.1 1.8-.8 3.4-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.2-2.6 1-1.5 1.4-2.9 1.5-3-.1 0-2.7-1.1-2.7-4Z"/></svg>`;
+    if (name === 'settings') return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2.4 2.4" stroke-linecap="round"/><path d="M12 2.2v2M12 19.8v2M2.2 12h2M19.8 12h2M5.1 5.1l1.4 1.4M17.5 17.5l1.4 1.4M18.9 5.1l-1.4 1.4M6.5 17.5l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+    if (name === 'apple') return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97 14.32 22 13.89 21.18 12.37 21.18 10.84 21.18 10.37 21.95 9.1 22 7.79 22.05 6.8 20.68 5.96 19.47 4.25 17 2.94 12.45 4.7 9.39 5.57 7.87 7.13 6.91 8.82 6.88 10.1 6.86 11.32 7.75 12.11 7.75c.78 0 2.26-1.07 3.81-.91 1.65.07 2.9.84 3.67 1.7-3.47 1.9-2.9 6.96.53 8.23-.03.07-.42 1.44-1.41 2.73ZM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>`;
     return icon(name, className);
   }
   function applyTheme(dark) { document.body.classList.toggle('dark', dark); localStorage.setItem('sarit-theme', dark ? 'dark' : 'light'); document.querySelector('#themeIcon').innerHTML = icon(dark ? 'moon' : 'sun'); document.querySelector('#themeValue').textContent = dark ? 'כהה' : 'בהיר'; }
@@ -75,6 +75,6 @@
     app.focus(); window.scrollTo({top: 0, behavior: 'smooth'});
   }
   function esc(value) { return value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=11'));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=12'));
   renderHome();
 })();

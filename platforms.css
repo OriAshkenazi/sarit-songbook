@@ -13,8 +13,8 @@
 .theme-toggle #themeIcon{display:inline-flex;align-items:center}
 .theme-toggle #themeIcon .ui-icon{width:1.15em;height:1.15em}
 .platform-link{gap:8px}
-.platform-icon{display:block;width:24px;height:24px;flex:0 0 24px;fill:currentColor;overflow:visible}
-.settings-icon{display:block;width:24px;height:24px;flex:0 0 24px;overflow:visible}
+.platform-icon{display:block;width:26px;height:26px;flex:0 0 26px;fill:currentColor;overflow:visible}
+.settings-icon{display:block;width:28px;height:28px;flex:0 0 28px;overflow:visible}
 .summary-chevron{display:inline-flex;align-items:center;margin-inline-start:auto;color:var(--rose)}
 .summary-chevron .ui-icon{width:1.1em;height:1.1em}
 .medley summary:after{content:none!important}
