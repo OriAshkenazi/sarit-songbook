@@ -10,7 +10,7 @@
   let query = '';
   let fontSize = Number(localStorage.getItem('sarit-font-size') || 20);
   let currentTitle = null;
-  const ICON_SPRITE = 'icons.svg?v=10';
+  const ICON_SPRITE = 'icons.svg?v=11';
 
   document.documentElement.style.setProperty('--reader-size', `${fontSize}px`);
   applyTheme(localStorage.getItem('sarit-theme') !== 'light');
@@ -27,9 +27,14 @@
   function toggleSettings() { settingsPanel.classList.toggle('open'); const open = settingsPanel.classList.contains('open'); settingsPanel.setAttribute('aria-hidden', String(!open)); settingsButton.setAttribute('aria-expanded', String(open)); }
   function closeSettings() { settingsPanel.classList.remove('open'); settingsPanel.setAttribute('aria-hidden', 'true'); settingsButton.setAttribute('aria-expanded', 'false'); }
   function icon(name, className = 'ui-icon') { return `<svg class="${className}" aria-hidden="true" focusable="false"><use href="${ICON_SPRITE}#${name}" xlink:href="${ICON_SPRITE}#${name}"></use></svg>`; }
-  settingsButton.innerHTML = icon('settings');
+  settingsButton.innerHTML = inlineIcon('settings', 'settings-icon');
   homeButton.innerHTML = icon('home');
   settingsClose.innerHTML = icon('close');
+  function inlineIcon(name, className) {
+    if (name === 'settings') return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9.6 3.8.6-1h3.6l.6 1 .4 1.4 1.3.8 1.4-.3 1-.6 2.6 2.6-.6 1-.3 1.4.8 1.3 1.4.4 1 .6v3.6l-1 .6-1.4.4-.8 1.3.3 1.4.6 1-2.6 2.6-1-.6-1.4-.3-1.3.8-.4 1.4-.6 1H10l-.6-1-.4-1.4-1.3-.8-1.4.3-1 .6-2.6-2.6.6-1 .3-1.4-.8-1.3-1.4-.4-1-.6v-3.6l1-.6 1.4-.4.8-1.3-.3-1.4-.6-1L5.3 5l1 .6 1.4.3L9 5.2l.6-1.4Z" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>`;
+    if (name === 'apple') return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M15.7 5.1c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.1 1.7-.7.8-1.3 2-1.1 3.1 1.2.1 2.4-.6 3.1-1.5Zm3.1 7.5c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.2-2-3.9-2-.9-.1-1.8.5-2.3.5-.6 0-1.4-.5-2.2-.5-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.3.9 1.3 1.9 2.7 3.3 2.6 1.3-.1 1.8-.8 3.4-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.2-2.6 1-1.5 1.4-2.9 1.5-3-.1 0-2.7-1.1-2.7-4Z"/></svg>`;
+    return icon(name, className);
+  }
   function applyTheme(dark) { document.body.classList.toggle('dark', dark); localStorage.setItem('sarit-theme', dark ? 'dark' : 'light'); document.querySelector('#themeIcon').innerHTML = icon(dark ? 'moon' : 'sun'); document.querySelector('#themeValue').textContent = dark ? 'כהה' : 'בהיר'; }
   function isIOSDevice() { return /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
   function getPlatformUrls(title) {
@@ -55,7 +60,7 @@
       if (!visible.length) return '';
       const children = visible.map(title => `<button class="song-row ${currentTitle === title ? 'current' : ''}" data-title="${esc(title)}"><span class="num">${flat.indexOf(title) + 1}</span><span>${esc(title)}${currentTitle === title ? ' · עכשיו' : ''}</span></button>`).join('');
       const isSingle = titles.length === 1;
-      return isSingle ? `<div class="medley">${children}</div>` : `<details class="medley" open><summary><span class="summary-chevron">${icon('chevron-down')}</span><span class="small-label">${titles.length} שירים</span><span class="summary-title">${esc(group)}</span></summary>${children}</details>`;
+      return isSingle ? `<div class="medley">${children}</div>` : `<details class="medley" open><summary><span class="summary-chevron">${icon('chevron-down')}</span><span class="small-label">${titles.length}&nbsp;שירים</span><span class="summary-title">${esc(group)}</span></summary>${children}</details>`;
     }).join('') || '<p class="section-title">לא נמצאו שירים.</p>';
     target.querySelectorAll('.song-row').forEach(button => button.addEventListener('click', () => renderReader(button.dataset.title)));
   }
@@ -63,13 +68,13 @@
     const song = songByTitle.get(title); if (!song) return;
     currentTitle = title; sessionStorage.setItem('sarit-current-title', title); const index = flat.indexOf(title); const previous = flat[index - 1]; const next = flat[index + 1]; closeSettings();
     const { appleMusicUrl, spotifyUrl } = getPlatformUrls(song.title);
-    app.innerHTML = `<div class="reader-head"><button class="icon-button back" id="backButton" aria-label="חזרה לרשימת השירים">${icon('chevron-right')}</button><h1 class="reader-title">${esc(song.title)}</h1></div><div class="platform-links" aria-label="חיפוש השיר בשירותי מוזיקה"><a class="platform-link apple" href="${appleMusicUrl}" target="_blank" rel="noopener noreferrer">${icon('apple','platform-icon')}<span>Apple Music</span></a><a class="platform-link spotify" href="${spotifyUrl}" target="_blank" rel="noopener noreferrer">${icon('spotify','platform-icon')}<span>Spotify</span></a></div><article class="lyrics" style="font-size:var(--reader-size)">${esc(song.lyrics)}</article><div class="nav-row"><button class="nav-button" id="prev" ${previous ? '' : 'disabled'}>${icon('chevron-right')}<span>${previous ? esc(previous) : 'תחילת המופע'}</span></button><button class="nav-button next" id="next" ${next ? '' : 'disabled'}><span>${next ? esc(next) : 'סוף המופע'}</span>${icon('chevron-left')}</button></div>`;
+    app.innerHTML = `<div class="reader-head"><button class="icon-button back" id="backButton" aria-label="חזרה לרשימת השירים">${icon('chevron-right')}</button><h1 class="reader-title">${esc(song.title)}</h1></div><div class="platform-links" aria-label="חיפוש השיר בשירותי מוזיקה"><a class="platform-link apple" href="${appleMusicUrl}" target="_blank" rel="noopener noreferrer">${inlineIcon('apple','platform-icon')}<span>Apple Music</span></a><a class="platform-link spotify" href="${spotifyUrl}" target="_blank" rel="noopener noreferrer">${icon('spotify','platform-icon')}<span>Spotify</span></a></div><article class="lyrics" style="font-size:var(--reader-size)">${esc(song.lyrics)}</article><div class="nav-row"><button class="nav-button" id="prev" ${previous ? '' : 'disabled'}>${icon('chevron-right')}<span>${previous ? esc(previous) : 'תחילת המופע'}</span></button><button class="nav-button next" id="next" ${next ? '' : 'disabled'}><span>${next ? esc(next) : 'סוף המופע'}</span>${icon('chevron-left')}</button></div>`;
     document.querySelector('#backButton').addEventListener('click', renderHome);
     if (previous) document.querySelector('#prev').addEventListener('click', () => renderReader(previous));
     if (next) document.querySelector('#next').addEventListener('click', () => renderReader(next));
     app.focus(); window.scrollTo({top: 0, behavior: 'smooth'});
   }
   function esc(value) { return value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=10'));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=11'));
   renderHome();
 })();
