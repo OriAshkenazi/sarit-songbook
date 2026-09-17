@@ -1,5 +1,5 @@
-const CACHE = 'sarit-songbook-v9';
-const ASSETS = ['./', './index.html', './styles.css', './platforms.css?v=9', './icons.svg?v=9', './app.js?v=9', './songs.js', './setlist.js', './manifest.webmanifest', './favicon.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './rubik-vf.ttf'];
+const CACHE = 'sarit-songbook-v10';
+const ASSETS = ['./', './index.html', './styles.css', './platforms.css?v=10', './icons.svg?v=10', './app.js?v=10', './songs.js', './setlist.js', './manifest.webmanifest', './favicon.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png', './rubik-vf.ttf'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', event => {

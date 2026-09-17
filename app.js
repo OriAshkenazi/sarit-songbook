@@ -10,7 +10,7 @@
   let query = '';
   let fontSize = Number(localStorage.getItem('sarit-font-size') || 20);
   let currentTitle = null;
-  const ICON_SPRITE = 'icons.svg?v=9';
+  const ICON_SPRITE = 'icons.svg?v=10';
 
   document.documentElement.style.setProperty('--reader-size', `${fontSize}px`);
   applyTheme(localStorage.getItem('sarit-theme') !== 'light');
@@ -55,7 +55,7 @@
       if (!visible.length) return '';
       const children = visible.map(title => `<button class="song-row ${currentTitle === title ? 'current' : ''}" data-title="${esc(title)}"><span class="num">${flat.indexOf(title) + 1}</span><span>${esc(title)}${currentTitle === title ? ' · עכשיו' : ''}</span></button>`).join('');
       const isSingle = titles.length === 1;
-      return isSingle ? `<div class="medley">${children}</div>` : `<details class="medley" open><summary>${esc(group)} <span class="small-label">${titles.length} שירים</span><span class="summary-chevron">${icon('chevron-down')}</span></summary>${children}</details>`;
+      return isSingle ? `<div class="medley">${children}</div>` : `<details class="medley" open><summary><span class="summary-chevron">${icon('chevron-down')}</span><span class="small-label">${titles.length} שירים</span><span class="summary-title">${esc(group)}</span></summary>${children}</details>`;
     }).join('') || '<p class="section-title">לא נמצאו שירים.</p>';
     target.querySelectorAll('.song-row').forEach(button => button.addEventListener('click', () => renderReader(button.dataset.title)));
   }
@@ -70,6 +70,6 @@
     app.focus(); window.scrollTo({top: 0, behavior: 'smooth'});
   }
   function esc(value) { return value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=9'));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=10'));
   renderHome();
 })();

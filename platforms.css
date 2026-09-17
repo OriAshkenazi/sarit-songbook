@@ -17,6 +17,7 @@
 .summary-chevron{display:inline-flex;align-items:center;margin-inline-start:auto;color:var(--rose)}
 .summary-chevron .ui-icon{width:1.1em;height:1.1em}
 .medley summary:after{content:none!important}
+.medley summary{direction:ltr;gap:10px}.medley summary .summary-title{direction:rtl;text-align:right;flex:1;min-width:0}.medley summary .small-label{direction:rtl;white-space:nowrap;flex:0 0 auto}.medley summary .summary-chevron{order:-1;flex:0 0 auto;margin:0}.medley summary .summary-chevron .ui-icon{display:block}
 .hero:after{content:''!important}
 .nav-button{display:flex;align-items:center;justify-content:center;gap:7px}
 .nav-button .ui-icon{width:1.05em;height:1.05em}
