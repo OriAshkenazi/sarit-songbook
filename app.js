@@ -51,7 +51,7 @@
   function renderReader(title) {
     const song = songByTitle.get(title); if (!song) return;
     currentTitle = title; sessionStorage.setItem('sarit-current-title', title); const index = flat.indexOf(title); const previous = flat[index - 1]; const next = flat[index + 1]; closeSettings();
-    app.innerHTML = `<div class="reader-head"><button class="icon-button back" id="backButton" aria-label="חזרה לרשימת השירים">→</button><h1 class="reader-title">${esc(song.title)}</h1></div><a class="source-link" href="${esc(song.source)}" target="_blank" rel="noopener">מקור: שירונט ↗</a><article class="lyrics" style="font-size:var(--reader-size)">${esc(song.lyrics)}</article><div class="nav-row"><button class="nav-button" id="prev" ${previous ? '' : 'disabled'}>→ ${previous ? esc(previous) : 'תחילת המופע'}</button><button class="nav-button next" id="next" ${next ? '' : 'disabled'}>${next ? esc(next) : 'סוף המופע'} ←</button></div>`;
+    app.innerHTML = `<div class="reader-head"><button class="icon-button back" id="backButton" aria-label="חזרה לרשימת השירים">→</button><h1 class="reader-title">${esc(song.title)}</h1></div><article class="lyrics" style="font-size:var(--reader-size)">${esc(song.lyrics)}</article><div class="nav-row"><button class="nav-button" id="prev" ${previous ? '' : 'disabled'}>→ ${previous ? esc(previous) : 'תחילת המופע'}</button><button class="nav-button next" id="next" ${next ? '' : 'disabled'}>${next ? esc(next) : 'סוף המופע'} ←</button></div>`;
     document.querySelector('#backButton').addEventListener('click', renderHome);
     if (previous) document.querySelector('#prev').addEventListener('click', () => renderReader(previous));
     if (next) document.querySelector('#next').addEventListener('click', () => renderReader(next));

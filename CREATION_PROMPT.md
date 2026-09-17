@@ -2,13 +2,13 @@
 
 Continue and maintain the existing static, installable, offline-first PWA songbook for Sarit Hadad’s 30th-anniversary show.
 
-## Source of truth and copyright boundary
+## Content and copyright boundary
 
-- The supplied `שרית_מאוחד.txt` file is the only source of lyrics, canonical song titles, and Shironet URLs.
-- Use each song’s embedded source URL to identify the corresponding lyrics block.
+- The supplied `שרית_מאוחד.txt` file is the only authority for lyrics and canonical song titles.
+- Match each song to its corresponding lyrics block in that supplied file.
 - Never fetch, copy, paraphrase, complete, or invent lyrics from another website.
 - Preserve the supplied lyrics exactly, including stanza breaks, punctuation, Hebrew/English text, and the four parenthesized lines in `תלך כפרה עלי`.
-- Keep Shironet links optional and external; lyrics must remain available offline.
+- Lyrics must remain available offline.
 
 ## Exact performance order
 
@@ -39,7 +39,7 @@ Canonical titles must remain exactly as supplied, including `מרוץ החיים
 
 - The app is a static RTL PWA designed for iPhone portrait screens.
 - The home screen shows the complete setlist with collapsible medleys and searchable song rows.
-- The reader shows the complete source-backed lyrics, canonical title, Shironet source link, and previous/next navigation.
+- The reader shows the complete supplied lyrics, canonical title, and previous/next navigation.
 - A shared gear settings panel is available from both the home and reader screens.
 - The settings panel provides font-size decrease/increase controls, current size, and light/dark mode.
 - Font size is persisted under `sarit-font-size`, bounded from 16px to 30px, and defaults to 20px.
@@ -78,7 +78,7 @@ The manifest and Safari metadata must reference the PNG artwork, not the legacy 
 ## Required QA before future changes are published
 
 - Verify the full setlist order and canonical titles remain unchanged.
-- Verify no lyrics or Shironet URLs changed unexpectedly.
+- Verify no lyrics, canonical titles, or setlist order changed unexpectedly.
 - Verify the home hero and document title contain the anniversary branding.
 - Verify manifest icon entries, Apple touch icon metadata, and all PNG dimensions.
 - Test the settings panel on both home and reader screens.

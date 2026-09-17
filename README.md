@@ -1,6 +1,6 @@
 # שרית חדד · ספר שירים
 
-Static offline-first PWA built only from the supplied `שרית_מאוחד.txt` source file, using the locally bundled Rubik font for Hebrew and Latin text.
+Static offline-first PWA built only from the supplied `שרית_מאוחד.txt` file, using the locally bundled Rubik font for Hebrew and Latin text.
 
 ## Run locally
 
@@ -12,4 +12,4 @@ python -m http.server 4173 --directory .
 
 Open `http://localhost:4173/` in a browser. For iPhone installation, deploy the folder to an HTTPS static host, open it in Safari, then choose **Share → Add to Home Screen**. The first successful load caches the app, font, icon, setlist, and all lyrics.
 
-Shironet links remain optional external links and require internet access.
+All lyrics and application assets are bundled locally for offline use.
