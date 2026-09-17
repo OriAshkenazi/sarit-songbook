@@ -1,5 +1,6 @@
 .platform-links{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
-.platform-link{display:inline-flex;align-items:center;justify-content:center;flex:1 1 150px;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:16px;text-decoration:none;font-size:.9rem;font-weight:700;transition:transform .15s ease,filter .15s ease}
+.platform-link{display:flex;align-items:center;justify-content:center;flex:1 1 150px;min-height:48px;padding:10px 14px;border:1px solid var(--line);border-radius:16px;text-decoration:none;font-size:.9rem;font-weight:700;transition:transform .15s ease,filter .15s ease;direction:ltr;text-align:center}
+.platform-link span{direction:ltr}
 .platform-link:active{transform:scale(.98)}
 .platform-link.apple{background:#fff0f4;color:#a12e58}
 .platform-link.spotify{background:#e9f8ed;color:#137333}
@@ -7,14 +8,15 @@
 .dark .platform-link.spotify{background:#173b27;color:#9be8b0}
 @media(max-width:390px){.platform-link{flex-basis:130px;padding-inline:10px}}
 .ui-icon{display:block;width:1.2em;height:1.2em;flex:none;fill:none;overflow:visible}
-.icon-button .ui-icon{width:1.35em;height:1.35em;margin:auto}
+.icon-button{display:inline-flex;align-items:center;justify-content:center;padding:0}
+.icon-button .ui-icon{width:1.35em;height:1.35em;margin:0}
 .settings-close .ui-icon{width:1.15em;height:1.15em;margin:auto}
 .settings-actions .ui-icon{width:1.15em;height:1.15em;margin:auto}
 .theme-toggle #themeIcon{display:inline-flex;align-items:center}
 .theme-toggle #themeIcon .ui-icon{width:1.15em;height:1.15em}
 .platform-link{gap:8px}
 .platform-icon{display:block;width:26px;height:26px;flex:0 0 26px;fill:currentColor;overflow:visible}
-.settings-icon{display:block;width:28px;height:28px;flex:0 0 28px;overflow:visible}
+.settings-icon{display:block;width:28px;height:28px;flex:0 0 28px;margin:0;overflow:visible}
 .summary-chevron{display:inline-flex;align-items:center;margin-inline-start:auto;color:var(--rose)}
 .summary-chevron .ui-icon{width:1.1em;height:1.1em}
 .medley summary:after{content:none!important}
