@@ -30,7 +30,7 @@
   function renderHome() {
     currentTitle = sessionStorage.getItem('sarit-current-title');
     closeSettings();
-    app.innerHTML = `<section class="hero"><p>ספר השירים</p><h1>שרית חדד</h1><p>סדר הופעה מלא · זמין גם ללא חיבור</p></section><div class="search-wrap"><input class="search" id="search" type="search" placeholder="חיפוש לפי שם השיר" aria-label="חיפוש לפי שם השיר"><button class="icon-button" id="clearSearch" aria-label="ניקוי חיפוש">×</button></div><h2 class="section-title">סדר ההופעה</h2><div id="setlist"></div>`;
+    app.innerHTML = `<section class="hero"><p>שרית חוגגת 30 שנות מוזיקה בפארק הירקון</p><h1>שרית חדד</h1><p>סדר הופעה מלא · זמין גם ללא חיבור</p></section><div class="search-wrap"><input class="search" id="search" type="search" placeholder="חיפוש לפי שם השיר" aria-label="חיפוש לפי שם השיר"><button class="icon-button" id="clearSearch" aria-label="ניקוי חיפוש">×</button></div><h2 class="section-title">סדר ההופעה</h2><div id="setlist"></div>`;
     document.querySelector('#search').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); drawSetlist(); });
     document.querySelector('#clearSearch').addEventListener('click', () => { query = ''; document.querySelector('#search').value = ''; drawSetlist(); });
     drawSetlist();
