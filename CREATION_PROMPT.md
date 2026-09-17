@@ -31,7 +31,7 @@ Continue and maintain the existing static, installable, offline-first PWA songbo
 17. חגיגה
 18. חופשיה
 19. הילדה מחדרה
-20. מחרוזת: תלך כפרה עלי → בחום של תל אביב
+20. מחרוזת: כפרה + חום של תל אביב: תלך כפרה עלי → בחום של תל אביב
 
 Canonical titles must remain exactly as supplied, including `מרוץ החיים`, `הייתי בגן עדן`, `הסוד`, `כשהלב בוכה`, `כמו סינדרלה`, `זה הסוד שלי`, `בוא`, `לילה לילה`, `סוף שבוע בפריז`, `Do You Love Me`, `קצת משוגעת`, `תלך כפרה עלי`, and `בחום של תל אביב`.
 
@@ -45,7 +45,19 @@ Canonical titles must remain exactly as supplied, including `מרוץ החיים
 - Font size is persisted under `sarit-font-size`, bounded from 16px to 30px, and defaults to 20px.
 - Theme is persisted under `sarit-theme`.
 - The settings panel closes with its close button, the gear button, an outside tap, or Escape.
+- The reader places Apple Music and Spotify search buttons directly below each canonical title and above the lyrics.
+- Search queries use `שרית חדד <canonical title>` and are encoded with `encodeURIComponent`.
+- iPhone/iPad uses native `music://music.apple.com/search?term=...` and `spotify:search:...` links; other devices use HTTPS search URLs.
 - Preserve RTL wrapping, safe-area spacing, one-handed tap targets, and no horizontal scrolling.
+
+## Icon and responsive-layout rules
+
+- Keep simple interface controls in the local `icons.svg` sprite: home, arrows, close, theme, and font-size controls.
+- Render the settings gear and Apple Music logo as normalized inline SVGs with `viewBox="0 0 24 24"` and `currentColor`, because iOS Safari can render external `<use>` references and oversized source viewBoxes inconsistently.
+- Use explicit fixed icon sizes, centered flex alignment, and touch containers of at least 44×44px.
+- Platform-link content must be centered as a complete label-and-icon group using LTR direction inside the RTL application.
+- Medley title, count, and chevron must remain separate flex items; counts such as `4 שירים` must be non-breaking and the chevron must remain anchored at the left.
+- Keep icon assets and the SVG sprite local so they continue working offline.
 
 ## Anniversary branding
 
@@ -71,6 +83,7 @@ The manifest and Safari metadata must reference the PNG artwork, not the legacy 
 - Keep the valid manifest and service worker.
 - Cache all application assets, including the portrait icon assets and the local Rubik font.
 - Bump the service-worker cache name whenever application assets change.
+- Current cache/versioned asset generation is v14; increment it for every subsequent shipped asset change.
 - The deployed target is GitHub Pages at:
   `https://oriashkenazi.github.io/sarit-songbook/`
 - The repository is `OriAshkenazi/sarit-songbook`, using the `main` branch as the Pages source.
@@ -82,6 +95,9 @@ The manifest and Safari metadata must reference the PNG artwork, not the legacy 
 - Verify the home hero and document title contain the anniversary branding.
 - Verify manifest icon entries, Apple touch icon metadata, and all PNG dimensions.
 - Test the settings panel on both home and reader screens.
+- Test Apple Music and Spotify buttons under every reader title, including native iOS URL generation and desktop HTTPS fallback.
+- Test settings, Apple Music, Spotify, home, close, chevron, theme, and font-size icons visually at desktop and iPhone sizes.
+- Confirm platform labels and icons are centered as a group and medley counts remain intact in RTL.
 - Test font-size persistence, theme persistence, previous/next navigation, and outside-tap closing.
 - Test at 375×812 and 390×844 portrait viewports.
 - Confirm `scrollWidth` equals `clientWidth` with no horizontal overflow.
