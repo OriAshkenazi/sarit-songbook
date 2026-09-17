@@ -3,32 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#43152f">
+  <meta name="theme-color" content="#21151c">
   <meta name="description" content="שרית חוגגת 30 שנות מוזיקה בפארק הירקון · ספר שירים לא מקוון.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="favicon.png" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="platforms.css?v=7">
+  <link rel="stylesheet" href="platforms.css?v=8">
   <title>שרית חדד · 30 שנות מוזיקה</title>
 </head>
-<body>
+<body class="dark">
   <div class="app-shell">
     <header class="topbar">
-      <button class="icon-button" id="homeButton" aria-label="חזרה לרשימת השירים">⌂</button>
+      <button class="icon-button" id="homeButton" aria-label="חזרה לרשימת השירים"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="icons.svg?v=8#home" xlink:href="icons.svg?v=8#home"></use></svg></button>
       <div class="brand"><span class="brand-kicker">הופעה חיה</span><strong>שרית חדד</strong></div>
-      <button class="icon-button" id="settingsButton" aria-label="פתיחת הגדרות" aria-expanded="false" aria-controls="settingsPanel">⚙</button>
+      <button class="icon-button" id="settingsButton" aria-label="פתיחת הגדרות" aria-expanded="false" aria-controls="settingsPanel"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="icons.svg?v=8#settings" xlink:href="icons.svg?v=8#settings"></use></svg></button>
     </header>
     <section class="settings-panel" id="settingsPanel" aria-hidden="true" aria-label="הגדרות תצוגה">
-      <div class="settings-heading"><strong>הגדרות תצוגה</strong><button class="settings-close" id="settingsClose" aria-label="סגירת הגדרות">×</button></div>
-      <div class="settings-control"><span>גודל טקסט</span><div class="settings-actions"><button class="tap-button" id="fontDown" aria-label="הקטנת גודל הטקסט">א−</button><output id="fontValue" aria-live="polite">20px</output><button class="tap-button" id="fontUp" aria-label="הגדלת גודל הטקסט">א＋</button></div></div>
-      <button class="theme-toggle" id="themeButton" type="button"><span id="themeIcon" aria-hidden="true">☼</span><span>מצב תצוגה</span><span id="themeValue">בהיר</span></button>
+      <div class="settings-heading"><strong>הגדרות תצוגה</strong><button class="settings-close" id="settingsClose" aria-label="סגירת הגדרות"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="icons.svg?v=8#close" xlink:href="icons.svg?v=8#close"></use></svg></button></div>
+      <div class="settings-control"><span>גודל טקסט</span><div class="settings-actions"><button class="tap-button" id="fontDown" aria-label="הקטנת גודל הטקסט"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="icons.svg?v=8#minus" xlink:href="icons.svg?v=8#minus"></use></svg></button><output id="fontValue" aria-live="polite">20px</output><button class="tap-button" id="fontUp" aria-label="הגדלת גודל הטקסט"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="icons.svg?v=8#plus" xlink:href="icons.svg?v=8#plus"></use></svg></button></div></div>
+      <button class="theme-toggle" id="themeButton" type="button"><span id="themeIcon" aria-hidden="true"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="icons.svg?v=8#moon" xlink:href="icons.svg?v=8#moon"></use></svg></span><span>מצב תצוגה</span><span id="themeValue">כהה</span></button>
     </section>
     <main id="app" tabindex="-1"></main>
     <footer class="footer-note">שרית חוגגת 30 שנות מוזיקה בפארק הירקון · ספר שירים לא מקוון</footer>
   </div>
   <script src="songs.js"></script>
   <script src="setlist.js"></script>
-  <script src="app.js?v=7"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

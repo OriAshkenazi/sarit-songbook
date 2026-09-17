@@ -5,8 +5,8 @@
   "dir": "rtl",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#fbf5ef",
-  "theme_color": "#43152f",
+  "background_color": "#21151c",
+  "theme_color": "#21151c",
   "description": "שרית חוגגת 30 שנות מוזיקה בפארק הירקון · ספר שירים לא מקוון",
   "icons": [
     {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},

@@ -6,3 +6,17 @@
 .dark .platform-link.apple{background:#432235;color:#ffc4d7}
 .dark .platform-link.spotify{background:#173b27;color:#9be8b0}
 @media(max-width:390px){.platform-link{flex-basis:130px;padding-inline:10px}}
+.ui-icon{display:block;width:1.2em;height:1.2em;flex:none;fill:none;overflow:visible}
+.icon-button .ui-icon{width:1.35em;height:1.35em;margin:auto}
+.settings-close .ui-icon{width:1.15em;height:1.15em;margin:auto}
+.settings-actions .ui-icon{width:1.15em;height:1.15em;margin:auto}
+.theme-toggle #themeIcon{display:inline-flex;align-items:center}
+.theme-toggle #themeIcon .ui-icon{width:1.15em;height:1.15em}
+.platform-link{gap:8px}
+.platform-icon{width:1.2em;height:1.2em;fill:currentColor}
+.summary-chevron{display:inline-flex;align-items:center;margin-inline-start:auto;color:var(--rose)}
+.summary-chevron .ui-icon{width:1.1em;height:1.1em}
+.medley summary:after{content:none!important}
+.hero:after{content:''!important}
+.nav-button{display:flex;align-items:center;justify-content:center;gap:7px}
+.nav-button .ui-icon{width:1.05em;height:1.05em}
