@@ -15,8 +15,13 @@
     <header class="topbar">
       <button class="icon-button" id="homeButton" aria-label="חזרה לרשימת השירים">⌂</button>
       <div class="brand"><span class="brand-kicker">הופעה חיה</span><strong>שרית חדד</strong></div>
-      <button class="icon-button" id="themeButton" aria-label="החלפת מצב תצוגה">☼</button>
+      <button class="icon-button" id="settingsButton" aria-label="פתיחת הגדרות" aria-expanded="false" aria-controls="settingsPanel">⚙</button>
     </header>
+    <section class="settings-panel" id="settingsPanel" aria-hidden="true" aria-label="הגדרות תצוגה">
+      <div class="settings-heading"><strong>הגדרות תצוגה</strong><button class="settings-close" id="settingsClose" aria-label="סגירת הגדרות">×</button></div>
+      <div class="settings-control"><span>גודל טקסט</span><div class="settings-actions"><button class="tap-button" id="fontDown" aria-label="הקטנת גודל הטקסט">א−</button><output id="fontValue" aria-live="polite">20px</output><button class="tap-button" id="fontUp" aria-label="הגדלת גודל הטקסט">א＋</button></div></div>
+      <button class="theme-toggle" id="themeButton" type="button"><span id="themeIcon" aria-hidden="true">☼</span><span>מצב תצוגה</span><span id="themeValue">בהיר</span></button>
+    </section>
     <main id="app" tabindex="-1"></main>
     <footer class="footer-note">הטקסטים מתוך הקובץ שסופק · המקור: שירונט</footer>
   </div>

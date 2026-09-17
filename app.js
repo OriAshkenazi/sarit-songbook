@@ -1,6 +1,9 @@
 (() => {
   const app = document.querySelector('#app');
   const homeButton = document.querySelector('#homeButton');
+  const settingsButton = document.querySelector('#settingsButton');
+  const settingsPanel = document.querySelector('#settingsPanel');
+  const settingsClose = document.querySelector('#settingsClose');
   const themeButton = document.querySelector('#themeButton');
   const songByTitle = new Map(SONGS.map(song => [song.title, song]));
   const flat = SETLIST.flatMap(group => group[1]);
@@ -9,19 +12,28 @@
   let currentTitle = null;
 
   document.documentElement.style.setProperty('--reader-size', `${fontSize}px`);
-  document.body.classList.toggle('dark', localStorage.getItem('sarit-theme') === 'dark');
-  themeButton.textContent = document.body.classList.contains('dark') ? '☾' : '☼';
-  themeButton.addEventListener('click', () => { document.body.classList.toggle('dark'); localStorage.setItem('sarit-theme', document.body.classList.contains('dark') ? 'dark' : 'light'); themeButton.textContent = document.body.classList.contains('dark') ? '☾' : '☼'; });
+  applyTheme(localStorage.getItem('sarit-theme') === 'dark');
+  settingsButton.addEventListener('click', toggleSettings);
+  settingsClose.addEventListener('click', closeSettings);
+  themeButton.addEventListener('click', () => applyTheme(!document.body.classList.contains('dark')));
+  document.addEventListener('click', event => { if (settingsPanel.classList.contains('open') && !settingsPanel.contains(event.target) && event.target !== settingsButton) closeSettings(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeSettings(); });
   homeButton.addEventListener('click', renderHome);
+  document.querySelector('#fontDown').addEventListener('click', () => changeFont(-1));
+  document.querySelector('#fontUp').addEventListener('click', () => changeFont(1));
+  updateFontLabel();
+
+  function toggleSettings() { settingsPanel.classList.toggle('open'); const open = settingsPanel.classList.contains('open'); settingsPanel.setAttribute('aria-hidden', String(!open)); settingsButton.setAttribute('aria-expanded', String(open)); }
+  function closeSettings() { settingsPanel.classList.remove('open'); settingsPanel.setAttribute('aria-hidden', 'true'); settingsButton.setAttribute('aria-expanded', 'false'); }
+  function applyTheme(dark) { document.body.classList.toggle('dark', dark); localStorage.setItem('sarit-theme', dark ? 'dark' : 'light'); document.querySelector('#themeIcon').textContent = dark ? '☾' : '☼'; document.querySelector('#themeValue').textContent = dark ? 'כהה' : 'בהיר'; }
 
   function renderHome() {
     currentTitle = sessionStorage.getItem('sarit-current-title');
-    app.innerHTML = `<section class="hero"><p>ספר השירים</p><h1>שרית חדד</h1><p>סדר הופעה מלא · זמין גם ללא חיבור</p></section><div class="search-wrap"><input class="search" id="search" type="search" placeholder="חיפוש לפי שם השיר" aria-label="חיפוש לפי שם השיר"><button class="icon-button" id="clearSearch" aria-label="ניקוי חיפוש">×</button></div><div class="control-row"><span class="small-label">גודל טקסט</span><button class="tap-button" id="fontDown">א−</button><span id="fontValue" class="small-label"></span><button class="tap-button" id="fontUp">א＋</button></div><h2 class="section-title">סדר ההופעה</h2><div id="setlist"></div>`;
+    closeSettings();
+    app.innerHTML = `<section class="hero"><p>ספר השירים</p><h1>שרית חדד</h1><p>סדר הופעה מלא · זמין גם ללא חיבור</p></section><div class="search-wrap"><input class="search" id="search" type="search" placeholder="חיפוש לפי שם השיר" aria-label="חיפוש לפי שם השיר"><button class="icon-button" id="clearSearch" aria-label="ניקוי חיפוש">×</button></div><h2 class="section-title">סדר ההופעה</h2><div id="setlist"></div>`;
     document.querySelector('#search').addEventListener('input', e => { query = e.target.value.trim().toLowerCase(); drawSetlist(); });
     document.querySelector('#clearSearch').addEventListener('click', () => { query = ''; document.querySelector('#search').value = ''; drawSetlist(); });
-    document.querySelector('#fontDown').addEventListener('click', () => changeFont(-1));
-    document.querySelector('#fontUp').addEventListener('click', () => changeFont(1));
-    updateFontLabel(); drawSetlist();
+    drawSetlist();
   }
   function changeFont(delta) { fontSize = Math.max(16, Math.min(30, fontSize + delta)); localStorage.setItem('sarit-font-size', fontSize); document.documentElement.style.setProperty('--reader-size', `${fontSize}px`); updateFontLabel(); }
   function updateFontLabel() { const el = document.querySelector('#fontValue'); if (el) el.textContent = `${fontSize}px`; }
@@ -38,7 +50,7 @@
   }
   function renderReader(title) {
     const song = songByTitle.get(title); if (!song) return;
-    currentTitle = title; sessionStorage.setItem('sarit-current-title', title); const index = flat.indexOf(title); const previous = flat[index - 1]; const next = flat[index + 1];
+    currentTitle = title; sessionStorage.setItem('sarit-current-title', title); const index = flat.indexOf(title); const previous = flat[index - 1]; const next = flat[index + 1]; closeSettings();
     app.innerHTML = `<div class="reader-head"><button class="icon-button back" id="backButton" aria-label="חזרה לרשימת השירים">→</button><h1 class="reader-title">${esc(song.title)}</h1></div><a class="source-link" href="${esc(song.source)}" target="_blank" rel="noopener">מקור: שירונט ↗</a><article class="lyrics" style="font-size:var(--reader-size)">${esc(song.lyrics)}</article><div class="nav-row"><button class="nav-button" id="prev" ${previous ? '' : 'disabled'}>→ ${previous ? esc(previous) : 'תחילת המופע'}</button><button class="nav-button next" id="next" ${next ? '' : 'disabled'}>${next ? esc(next) : 'סוף המופע'} ←</button></div>`;
     document.querySelector('#backButton').addEventListener('click', renderHome);
     if (previous) document.querySelector('#prev').addEventListener('click', () => renderReader(previous));
