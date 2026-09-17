@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#43152f">
+  <meta name="description" content="ספר השירים של שרית חדד — עובד גם בלי חיבור לאינטרנט.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>שרית חדד · ספר שירים</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-button" id="homeButton" aria-label="חזרה לרשימת השירים">⌂</button>
+      <div class="brand"><span class="brand-kicker">הופעה חיה</span><strong>שרית חדד</strong></div>
+      <button class="icon-button" id="themeButton" aria-label="החלפת מצב תצוגה">☼</button>
+    </header>
+    <main id="app" tabindex="-1"></main>
+    <footer class="footer-note">הטקסטים מתוך הקובץ שסופק · המקור: שירונט</footer>
+  </div>
+  <script src="songs.js"></script>
+  <script src="setlist.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
