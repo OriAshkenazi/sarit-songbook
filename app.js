@@ -10,14 +10,14 @@
   let query = '';
   let fontSize = Number(localStorage.getItem('sarit-font-size') || 20);
   let currentTitle = null;
-  const ICON_SPRITE = 'icons.svg?v=8';
+  const ICON_SPRITE = 'icons.svg?v=9';
 
   document.documentElement.style.setProperty('--reader-size', `${fontSize}px`);
   applyTheme(localStorage.getItem('sarit-theme') !== 'light');
   settingsButton.addEventListener('click', toggleSettings);
   settingsClose.addEventListener('click', closeSettings);
   themeButton.addEventListener('click', () => applyTheme(!document.body.classList.contains('dark')));
-  document.addEventListener('click', event => { if (settingsPanel.classList.contains('open') && !settingsPanel.contains(event.target) && event.target !== settingsButton) closeSettings(); });
+  document.addEventListener('click', event => { if (settingsPanel.classList.contains('open') && !settingsPanel.contains(event.target) && !settingsButton.contains(event.target)) closeSettings(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeSettings(); });
   homeButton.addEventListener('click', renderHome);
   document.querySelector('#fontDown').addEventListener('click', () => changeFont(-1));
@@ -27,6 +27,9 @@
   function toggleSettings() { settingsPanel.classList.toggle('open'); const open = settingsPanel.classList.contains('open'); settingsPanel.setAttribute('aria-hidden', String(!open)); settingsButton.setAttribute('aria-expanded', String(open)); }
   function closeSettings() { settingsPanel.classList.remove('open'); settingsPanel.setAttribute('aria-hidden', 'true'); settingsButton.setAttribute('aria-expanded', 'false'); }
   function icon(name, className = 'ui-icon') { return `<svg class="${className}" aria-hidden="true" focusable="false"><use href="${ICON_SPRITE}#${name}" xlink:href="${ICON_SPRITE}#${name}"></use></svg>`; }
+  settingsButton.innerHTML = icon('settings');
+  homeButton.innerHTML = icon('home');
+  settingsClose.innerHTML = icon('close');
   function applyTheme(dark) { document.body.classList.toggle('dark', dark); localStorage.setItem('sarit-theme', dark ? 'dark' : 'light'); document.querySelector('#themeIcon').innerHTML = icon(dark ? 'moon' : 'sun'); document.querySelector('#themeValue').textContent = dark ? 'כהה' : 'בהיר'; }
   function isIOSDevice() { return /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
   function getPlatformUrls(title) {
@@ -67,6 +70,6 @@
     app.focus(); window.scrollTo({top: 0, behavior: 'smooth'});
   }
   function esc(value) { return value.replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
-  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=8'));
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js?v=9'));
   renderHome();
 })();
